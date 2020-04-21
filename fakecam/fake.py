@@ -7,7 +7,7 @@ from signal import signal, SIGINT
 from sys import exit
 
 # setup access to the *real* webcam
-cap = cv2.VideoCapture('/dev/video0')
+cap = cv2.VideoCapture('/dev/video2')
 height, width = 720, 1280
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -17,7 +17,7 @@ cap.set(cv2.CAP_PROP_FPS, 30)
 sf = 0.5
 
 # setup the fake camera
-fake = pyfakewebcam.FakeWebcam('/dev/video2', width, height)
+fake = pyfakewebcam.FakeWebcam('/dev/video10', width, height)
 
 # declare global variables
 background = None
