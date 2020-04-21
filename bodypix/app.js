@@ -16,9 +16,9 @@ const http = require('http');
         });
         req.on('end', async () => {
             const image = tf.node.decodeImage(Buffer.concat(chunks));
-            segmentation = await net.segmentPerson(image, {
+            segmentation = await net.segmentPersonParts(image, {
                 flipHorizontal: false,
-                internalResolution: 'high',
+                internalResolution: 'medium',
                 segmentationThreshold: 0.7,
             });
             res.writeHead(200, { 'Content-Type': 'application/octet-stream' });
