@@ -1,0 +1,10 @@
+name: fakecam
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy=1.18
+  - opencv=4.2
+  - requests=2.23
+  - pip:
+    - pyfakewebcam==0.1.0
