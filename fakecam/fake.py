@@ -27,23 +27,10 @@ inv_f_mask = None
 
 def load_images():
     global background
-    global foreground
-    global f_mask
-    global inv_f_mask
 
     # load the virtual background
     background = cv2.imread("background.jpg")
     background = cv2.resize(background, (width, height))
-
-    foreground = cv2.imread("foreground.jpg")
-    foreground = cv2.resize(foreground, (width, height))
-
-    f_mask = cv2.imread("foreground-mask.png")
-    f_mask = cv2.normalize(f_mask, None, alpha=0, beta=1,
-                        norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
-    f_mask = cv2.resize(f_mask, (width, height))
-    f_mask = cv2.cvtColor(f_mask, cv2.COLOR_BGR2GRAY)
-    inv_f_mask = 1 - f_mask
 
 def handler(signal_received, frame):
     load_images()
@@ -90,10 +77,7 @@ def get_frame(cap, background):
 
     # composite the foreground and background
     for c in range(frame.shape[2]):
-        frame[:,:,c] = frame[:,:,c] * mask + background[:,:,c] * (1 - mask)
-
-    for c in range(frame.shape[2]):
-        frame[:,:,c] = frame[:,:,c] * inv_f_mask + foreground[:,:,c] * f_mask
+        frame[:,:,c] = background[:,:,c] * (1 - mask*0.8)
 
     return frame
 
